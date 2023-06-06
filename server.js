@@ -6,8 +6,8 @@ const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const jwt_secret = "wdadqkjbjbjgsefjqlkweq;lwlekqwhiohqiowbq[]12333487589jkjawbdjawbdjka";
-const mongoUrl="mongodb+srv://user:Laverne123*@cluster0.kkre8fz.mongodb.net/?retryWrites=true&w=majority"
+const jwt_secret = "qwertyuiop;asdfghjkl[]1234567890zxcvbnmm";
+const mongoUrl="mongodb+srv://gipolanjaquelyn:jackyg888@cluster0.vo4pjnu.mongodb.net/?retryWrites=true&w=majority"
 
 
 mongoose.connect(mongoUrl,{
@@ -20,7 +20,7 @@ require("./userDetails")
 const User=mongoose.model("UserInfo");
 
 app.post("/register",async(req,res)=>{
-    const {ID,fname,lname,position,gender, address,contactno,email,password, userType} = req.body;
+    const {fname,lname,gender,skills,disability,address,contactno,email,password, userType} = req.body;
 
     const encryptedPassword=await bcrypt.hash(password,10);
     try{
@@ -31,11 +31,11 @@ app.post("/register",async(req,res)=>{
         }
 
         await User.create({
-            ID,
             fname,
             lname,
-            position,
             gender,
+            skills,
+            disability,
             address,
             contactno,
             email,
@@ -49,7 +49,7 @@ app.post("/register",async(req,res)=>{
     }
 });
 
-app.post("/login-user", async(req,res)=>{
+app.post("/sign-in", async(req,res)=>{
     const {email,password} = req.body;
 
     const user = await User.findOne ({ email });
@@ -98,7 +98,7 @@ app.post("/post", async (req,res) => {
         }
     } catch(error){
 
-        res.send({ status: "Something went wrong try again!"});
+        res.send({ status: "Something went wrong, try again!"});
     }
 });
 
@@ -110,54 +110,3 @@ app.get("/getAllUser", async(req,res)=>{
         console.log(error);
     }
 });
-
-//API of updateUser but won't work
-app.post("/updateUser/:_id", async(req,res)=>{
-    try{
-        const {userid}=req.body;
-        await User.updateOne({ _id: userid });
-        res.send({ status: "ok", data: "Updated successfully!" });
-    }catch (error) {
-        console.log(error);
-        res.send({ status: "error", data: error }); 
-    }
-});
-
-//API of updateUser but won't work
-  app.put("/updateUser/:_id", async (req, res) => {
-    try{
-        const {userid}=req.body;
-        await User.updateOne({ _id: userid });
-        res.send({ status: "ok", data: "Updated successfully!" });
-    }catch (error) {
-        console.log(error);
-        res.send({ status: "error", data: error }); 
-    }
-  });
-  
-
-app.post("/deleteUser", async (req, res) => {
-    try {
-      const { userid } = req.body;
-      await User.deleteOne({ _id: userid });
-      res.send({ status: "ok", data: "Deleted successfully!" });
-    } catch (error) {
-      console.log(error);
-      res.send({ status: "error", data: error });
-    }
-  });
-
-
-/*
-app.post("/deleteUser", async(req,res)=>{
-    const {userid}=req.body;
-    try{
-        User.deleteOne({ _id: userid }, function (err, res) {
-            console.log(err);
-        });
-        res.send({ status: "ok", data: "Deleted" });
-    }catch (error) {
-        console.log(error);
-    }
-});
-*/

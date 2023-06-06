@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: linear-gradient(to bottom, #8360c3, #2ebf91) !important;
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8) !important;
   min-height: 120vh;
   display: flex;
   font-weight: 400;

@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const UserDetailsSchema =new mongoose.Schema(
     {
-        ID:String,
         fname:String,
         lname:String,
-        position:String,
+        skills:String,
+        disability:String,
         gender:String,
         address:String,
         contactno:String,

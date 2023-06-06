@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Login() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -8,7 +8,7 @@ export default function Login() {
     e.preventDefault();
 
     console.log(email, password);
-    fetch("http://localhost:3000/login-user", {
+    fetch("http://localhost:3000/sign-in", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -25,7 +25,7 @@ export default function Login() {
       .then((data) => {
         console.log(data, "userRegister");
         if (data.status === "ok") {
-          alert("login successful");
+          alert("Login successfully!");
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
 
@@ -38,7 +38,6 @@ export default function Login() {
     <div className="auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
-          <h3>BreedR</h3>
           <h3>Sign In</h3>
 
           <div className="mb-3">
@@ -74,7 +73,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="d-grid">
+          <div className="text-center">
             <button type="submit" className="btn btn-success">
               Submit
             </button>

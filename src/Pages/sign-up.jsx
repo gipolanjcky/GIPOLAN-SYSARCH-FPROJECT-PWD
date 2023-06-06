@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 export default function SignUp() {
-  const [ID, setId] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [position, setPosition] = useState("");
   const [gender, setGender] = useState("");
+  const [skills, setSkills] = useState("");
+  const [disability, setDisability] = useState("");
   const [address, setAddress] = useState("");
   const [contactno, setContactNo] = useState("");
   const [email, setEmail] = useState("");
@@ -14,13 +14,13 @@ export default function SignUp() {
   const [secretKey, setSecretKey] = useState("");
 
   const handleSubmit = (e) => {
-    if (userType === "Admin" && secretKey !== "Laverne123*") {
+    if (userType === "Admin" && secretKey !== "jackyg888") {
       e.preventDefault();
       alert("Invalid Admin!");
     } else {
       e.preventDefault();
 
-      console.log(ID, fname, lname, position, gender, address, contactno, email, password, userType);
+      console.log( fname, lname, gender, skills, disability, address, contactno, email, password, userType);
       fetch("http://localhost:3000/register", {
         method: "POST",
         crossDomain: true,
@@ -30,11 +30,11 @@ export default function SignUp() {
           "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
-          ID: ID,
           fname: fname,
           lname: lname,
-          position: position,
           gender: gender,
+          skills: skills,
+          disability: disability,
           address: address,
           contactno: contactno,
           email: email,
@@ -46,9 +46,9 @@ export default function SignUp() {
         .then((data) => {
           console.log(data, "userRegister");
           if (data.status === "ok") {
-            alert("Registration Successful!");
+            alert("Successfully Register!");
           } else {
-            alert("Something went wrong!");
+            alert("Something went wrong, try again!");
           }
         });
     }
@@ -89,16 +89,6 @@ export default function SignUp() {
           ) : null}
 
           <div className="mb-3">
-            <label>ID</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="ID"
-              onChange={(e) => setId(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-3">
             <label>First name</label>
             <input
               type="text"
@@ -119,22 +109,32 @@ export default function SignUp() {
           </div>
 
           <div className="mb-3">
-            <label>Position</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Position"
-              onChange={(e) => setPosition(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-3">
             <label>Gender</label>
             <input
               type="text"
               className="form-control"
               placeholder="Gender"
               onChange={(e) => setGender(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label>Skills</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Skills"
+              onChange={(e) => setSkills(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label>Disability</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Disability"
+              onChange={(e) => setDisability(e.target.value)}
             />
           </div>
 
@@ -178,7 +178,7 @@ export default function SignUp() {
             />
           </div>
 
-          <div className="d-grid">
+          <div className="text-center">
             <button type="submit" className="btn btn-success">
               Sign Up
             </button>
